@@ -16,7 +16,7 @@ export interface ThaiWord {
 
 export type StudyDirection = 'fr-to-th' | 'th-to-fr';
 
-export type AppTab = 'flashcards' | 'quiz' | 'dialogues' | 'matching' | 'dictionary' | 'guide';
+export type AppTab = 'flashcards' | 'quiz' | 'dialogues' | 'matching' | 'dictionary' | 'guide' | 'games';
 
 export interface UserProgress {
   mastery: Record<string, WordMastery>;

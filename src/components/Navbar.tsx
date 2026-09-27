@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppTab, StudyDirection } from '../types/vocab';
-import { BookOpen, HelpCircle, MessageCircleHeart, Layers, Search, Flame, BarChart2, ArrowRightLeft, Heart } from 'lucide-react';
+import { BookOpen, HelpCircle, MessageCircleHeart, Layers, Search, Flame, BarChart2, ArrowRightLeft, Heart, Gamepad2 } from 'lucide-react';
 
 interface NavbarProps {
   currentTab: AppTab;
@@ -114,6 +114,18 @@ export const Navbar: React.FC<NavbarProps> = ({
               <BookOpen className="w-4 h-4" />
               <span>Guide Oral</span>
             </button>
+
+            <button
+              onClick={() => onTabChange('games')}
+              className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors whitespace-nowrap flex items-center gap-1.5 ${
+                currentTab === 'games'
+                  ? 'bg-rose-50 text-rose-700 font-semibold'
+                  : 'text-slate-600 hover:text-rose-600 hover:bg-rose-50/40'
+              }`}
+            >
+              <Gamepad2 className="w-4 h-4" />
+              <span>Jeux Amoureux ⚡</span>
+            </button>
           </nav>
 
           {/* Zone 3: 1-2 primary actions */}
@@ -201,6 +213,14 @@ export const Navbar: React.FC<NavbarProps> = ({
           }`}
         >
           Guide Oral
+        </button>
+        <button
+          onClick={() => onTabChange('games')}
+          className={`px-3 py-1.5 text-xs font-medium rounded-md whitespace-nowrap ${
+            currentTab === 'games' ? 'bg-rose-500 text-white' : 'text-slate-600 bg-white border border-rose-100'
+          }`}
+        >
+          Jeux ⚡
         </button>
       </div>
     </header>

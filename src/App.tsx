@@ -9,6 +9,9 @@ import { DialoguesView } from './components/DialoguesView';
 import { MatchingView } from './components/MatchingView';
 import { DictionaryView } from './components/DictionaryView';
 import { AlphabetView } from './components/AlphabetView';
+import { GamesView } from './components/GamesView';
+import { PWAInstallButton } from './components/PWAInstallButton';
+import { OfflineIndicator } from './components/OfflineIndicator';
 import { StatsModal } from './components/StatsModal';
 import { Heart } from 'lucide-react';
 
@@ -100,6 +103,8 @@ export default function App() {
         onOpenStats={() => setIsStatsOpen(true)}
       />
 
+      <PWAInstallButton />
+
       {/* Main Study Arena */}
       <main className="flex-1">
         {currentTab === 'flashcards' && (
@@ -147,6 +152,8 @@ export default function App() {
         )}
 
         {currentTab === 'guide' && <AlphabetView />}
+
+        {currentTab === 'games' && <GamesView words={VOCABULARY_DATA} />}
       </main>
 
       {/* Progress & Stats Modal */}
@@ -176,6 +183,8 @@ export default function App() {
           </div>
         </div>
       </footer>
+
+      <OfflineIndicator />
     </div>
   );
 }
