@@ -6,11 +6,19 @@ on:
   pull_request:
     branches: [ main, master ]
 
+# Autorisations requises pour déployer nativement sur GitHub Pages
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+# Permet d'éviter les collisions de déploiement
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
-  build-and-test:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -32,10 +40,16 @@ jobs:
     - name: 🏗️ Compilation de production (Vite Build)
       run: npm run build
 
-    - name: 🚀 Déploiement sur GitHub Pages
-      if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
-      uses: JamesIves/github-pages-deploy-action@v4
+    - name: 🛠️ Configuration de GitHub Pages
+      uses: actions/configure-pages@v5
+
+    - name: 📤 Téléchargement de l'artéfact de build
+      uses: actions/upload-pages-artifact@v3
       with:
-        folder: dist
-        branch: gh-pages
+        path: './dist'
+
+    - name: 🚀 Déploiement sur GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
+
 
