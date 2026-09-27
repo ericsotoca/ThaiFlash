@@ -1,3 +1,4 @@
+// Configuration de production optimisée pour le déploiement GitHub Pages de ThaiFlash
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
