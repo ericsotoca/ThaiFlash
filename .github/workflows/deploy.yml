@@ -21,7 +21,7 @@ jobs:
         cache: 'npm'
 
     - name: 📦 Installation des dépendances
-      run: npm ci
+      run: npm ci --legacy-peer-deps
 
     - name: 🔍 Vérification du Linter (TypeScript)
       run: npm run lint

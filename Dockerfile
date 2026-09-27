@@ -7,7 +7,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Installation de toutes les dépendances
-RUN npm ci
+RUN npm ci --legacy-peer-deps
 
 # Copie de l'intégralité du code source
 COPY . .
@@ -22,7 +22,7 @@ WORKDIR /app
 
 # Copie des fichiers de package et installation des dépendances de production uniquement
 COPY package*.json ./
-RUN npm ci --only=production
+RUN npm ci --only=production --legacy-peer-deps
 
 # Installation globale de tsx pour exécuter directement le fichier TypeScript du serveur
 RUN npm install -g tsx
