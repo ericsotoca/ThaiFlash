@@ -168,7 +168,7 @@ export default function App() {
           <div className="flex items-center gap-2">
             <span className="font-semibold text-rose-700 flex items-center gap-1">
               <Heart className="w-3 h-3 fill-current text-rose-500" />
-              <span>RussoFlash : Thaï Oral de Couple</span>
+              <span>ThaiFlash : Thaï Oral de Couple</span>
             </span>
             <span aria-hidden="true">·</span>
             <span>36 phrases & expressions essentielles pour couple franco-thaïlandais</span>

@@ -1,0 +1,34 @@
+name: CI/CD - ThaiFlash
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 📥 Récupération du code source
+      uses: actions/checkout@v4
+
+    - name: 🟢 Configuration de Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: 'npm'
+
+    - name: 📦 Installation des dépendances
+      run: npm ci
+
+    - name: 🔍 Vérification du Linter (TypeScript)
+      run: npm run lint
+
+    - name: 🏗️ Compilation de production (Vite Build)
+      run: npm run build
+
+    # Ce workflow valide que votre code compile parfaitement et ne contient aucune erreur de type.
+    # Pour un déploiement automatique sur Render, Heroku ou Koyeb :
+    # Vous pouvez ajouter une étape de déploiement automatique par Webhook à la fin de ce fichier.

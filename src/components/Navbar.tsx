@@ -36,7 +36,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span className="w-8 h-8 rounded-lg bg-rose-500 text-white flex items-center justify-center font-bold text-base shadow-xs animate-pulse">
                 <Heart className="w-4 h-4 fill-current" />
               </span>
-              <span className="font-serif-title text-xl text-rose-700">RussoFlash</span>
+              <span className="font-serif-title text-xl text-rose-700">ThaiFlash</span>
               <span className="text-xs text-rose-400 font-sans font-medium hidden lg:inline">· Thai Amoureux (Oral)</span>
             </button>
           </div>
