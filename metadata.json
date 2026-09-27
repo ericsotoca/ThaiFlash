@@ -1,0 +1,8 @@
+{
+  "name": "RussoFlash - Thaïlandais Oral de Couple",
+  "description": "Application interactive d\u0027apprentissage du thaïlandais à l\u0027oral pour les couples franco-thaïlandais : prononciation, tons, surnoms mignons et dialogues réels.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
