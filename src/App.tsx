@@ -3,7 +3,6 @@ import { VOCABULARY_DATA, THAI_CATEGORIES } from './data/thaiVocab';
 import { AppTab, StudyDirection, WordMastery, UserProgress } from './types/vocab';
 import { loadUserProgress, saveUserProgress } from './utils/storage';
 import { Navbar } from './components/Navbar';
-import { AudioTroubleshooter } from './components/AudioTroubleshooter';
 import { FlashcardView } from './components/FlashcardView';
 import { QuizView } from './components/QuizView';
 import { DialoguesView } from './components/DialoguesView';
@@ -100,9 +99,6 @@ export default function App() {
         totalCount={VOCABULARY_DATA.length}
         onOpenStats={() => setIsStatsOpen(true)}
       />
-
-      {/* Audio troubleshooting bar */}
-      <AudioTroubleshooter />
 
       {/* Main Study Arena */}
       <main className="flex-1">

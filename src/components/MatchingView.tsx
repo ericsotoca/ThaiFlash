@@ -134,57 +134,57 @@ export const MatchingView: React.FC<MatchingViewProps> = ({ words }) => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+    <div className="max-w-3xl mx-auto px-2 sm:px-6 py-2 sm:py-6">
       {/* Top Header */}
-      <div className="flex items-center justify-between text-xs text-slate-500 mb-6 pb-3 border-b border-rose-100">
+      <div className="flex flex-wrap items-center justify-between text-3xs sm:text-xs text-slate-500 mb-4 pb-2 border-b border-rose-100 gap-2">
         <div>
-          <h2 className="text-lg font-bold text-slate-900 font-serif-title flex items-center gap-1.5">
-            <Heart className="w-4 h-4 text-rose-500 fill-current" />
+          <h2 className="text-sm sm:text-lg font-bold text-slate-900 font-serif-title flex items-center gap-1">
+            <Heart className="w-3.5 h-3.5 text-rose-500 fill-current animate-pulse" />
             <span>Association des Mots Doux</span>
           </h2>
-          <p className="text-slate-500 text-xs">
+          <p className="text-slate-500 text-3xs">
             Associez le son de la phrase thaïlandaise à sa traduction française amoureuse.
           </p>
         </div>
 
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-1.5 font-mono text-rose-700 font-semibold bg-rose-50 px-3 py-1.5 rounded-lg text-xs">
-            <Clock className="w-3.5 h-3.5 text-rose-400" />
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 font-mono text-rose-700 font-semibold bg-rose-50 px-2 py-1 rounded-lg text-3xs">
+            <Clock className="w-3 h-3 text-rose-400" />
             <span>{timer}s</span>
           </div>
 
           <button
             onClick={startNewGame}
-            className="p-2 text-slate-600 hover:text-rose-600 hover:bg-rose-50/50 rounded-lg transition-colors cursor-pointer"
+            className="p-1 text-slate-600 hover:text-rose-600 hover:bg-rose-50/50 rounded-lg transition-colors cursor-pointer"
             title="Recommencer une partie"
           >
-            <RotateCcw className="w-4 h-4" />
+            <RotateCcw className="w-3.5 h-3.5" />
           </button>
         </div>
       </div>
 
       {isCompleted ? (
-        <div className="bg-white rounded-2xl border border-rose-100 p-8 text-center shadow-xs">
-          <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center">
-            <Trophy className="w-8 h-8" />
+        <div className="bg-white rounded-2xl border border-rose-100 p-6 sm:p-8 text-center shadow-xs">
+          <div className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center">
+            <Trophy className="w-6 h-6 sm:w-8 sm:h-8" />
           </div>
-          <h3 className="text-2xl font-bold text-slate-900 mb-2 font-serif-title">
+          <h3 className="text-lg sm:text-2xl font-bold text-slate-900 mb-1 sm:mb-2 font-serif-title">
             Félicitations, vous assurez grave !
           </h3>
-          <p className="text-slate-600 text-sm mb-6">
+          <p className="text-slate-600 text-xs sm:text-sm mb-4 sm:mb-6">
             Vous avez assemblé ces 6 paires de couple en{' '}
             <strong className="font-mono text-rose-600">{timer} secondes</strong>.
           </p>
           <button
             onClick={startNewGame}
-            className="px-6 py-3 bg-rose-600 hover:bg-rose-700 text-white rounded-xl font-semibold text-sm transition-colors inline-flex items-center gap-2 shadow-xs cursor-pointer"
+            className="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl font-semibold text-xs sm:text-sm transition-colors inline-flex items-center gap-1.5 shadow-xs cursor-pointer"
           >
-            <RotateCcw className="w-4 h-4" />
+            <RotateCcw className="w-3.5 h-3.5" />
             <span>Recommencer un jeu</span>
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3">
           {tiles.map((tile) => {
             const isSelected = selectedTileId === tile.id;
             const isWrong = wrongMatch && wrongMatch.includes(tile.id);
@@ -204,25 +204,25 @@ export const MatchingView: React.FC<MatchingViewProps> = ({ words }) => {
                 key={tile.id}
                 onClick={() => handleTileClick(tile)}
                 disabled={tile.isMatched}
-                className={`min-h-[100px] p-4 rounded-xl border text-center font-semibold text-sm sm:text-base transition-all duration-200 flex flex-col items-center justify-center relative select-none cursor-pointer ${style}`}
+                className={`min-h-[85px] sm:min-h-[100px] p-2.5 sm:p-4 rounded-xl border text-center font-semibold text-xs sm:text-base transition-all duration-200 flex flex-col items-center justify-center relative select-none cursor-pointer ${style}`}
               >
-                <span className="text-2xs uppercase tracking-wider text-slate-400 font-normal mb-1">
+                <span className="text-4xs sm:text-2xs uppercase tracking-wider text-slate-400 font-normal mb-0.5 sm:mb-1">
                   {tile.type === 'thai' ? 'Thaï (Oral)' : 'Français'}
                 </span>
                 
                 {tile.type === 'thai' ? (
                   <div className="space-y-0.5">
                     {/* Big phonetic primary */}
-                    <span className="font-bold text-sm sm:text-base text-slate-900 block">
+                    <span className="font-bold text-xs sm:text-base text-slate-900 block leading-tight">
                       {tile.phonetic}
                     </span>
                     {/* Small Thai script secondary */}
-                    <span className="text-3xs text-slate-400 font-serif-title block">
+                    <span className="text-4xs sm:text-3xs text-slate-400 font-serif-title block">
                       ({tile.text})
                     </span>
                   </div>
                 ) : (
-                  <span className="text-xs sm:text-sm text-slate-800 leading-snug">
+                  <span className="text-2xs sm:text-sm text-slate-800 leading-snug">
                     {tile.text}
                   </span>
                 )}

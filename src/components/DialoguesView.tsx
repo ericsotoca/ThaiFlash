@@ -278,42 +278,42 @@ export const DialoguesView: React.FC = () => {
     : null;
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+    <div className="max-w-4xl mx-auto px-2 sm:px-6 py-2 sm:py-6">
       {!selectedScenarioId ? (
         // Scenario Selection Screen
         <div>
-          <div className="mb-8 text-center">
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 font-serif-title flex items-center justify-center gap-2">
-              <Heart className="w-6 h-6 text-rose-500 fill-current animate-pulse" />
+          <div className="mb-4 sm:mb-8 text-center">
+            <h2 className="text-xl sm:text-3xl font-bold text-slate-900 font-serif-title flex items-center justify-center gap-2">
+              <Heart className="w-5 h-5 text-rose-500 fill-current animate-pulse" />
               <span>Simulateur de Conversations Réelles</span>
             </h2>
-            <p className="text-slate-500 text-sm max-w-xl mx-auto mt-2">
+            <p className="text-slate-500 text-xs sm:text-sm max-w-xl mx-auto mt-1 sm:mt-2">
               Entraînez-vous à répondre oralement dans des situations concrètes de la vie de couple franco-thaïlandaise.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:grid-cols-3">
             {DIALOGUES_DATA.map((sc) => (
               <div
                 key={sc.id}
-                className="bg-white rounded-2xl border border-rose-100 p-6 flex flex-col justify-between hover:shadow-xs transition-shadow duration-150"
+                className="bg-white rounded-2xl border border-rose-100 p-4 sm:p-6 flex flex-col justify-between hover:shadow-xs transition-shadow duration-150"
               >
                 <div>
-                  <div className="text-4xl mb-4">{sc.icon}</div>
-                  <h3 className="text-lg font-bold text-slate-950 font-serif-title mb-2">
+                  <div className="text-2xl sm:text-4xl mb-2 sm:mb-4">{sc.icon}</div>
+                  <h3 className="text-sm sm:text-lg font-bold text-slate-950 font-serif-title mb-1 sm:mb-2">
                     {sc.title}
                   </h3>
-                  <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-6">
+                  <p className="text-slate-600 text-3xs sm:text-sm leading-relaxed mb-4 sm:mb-6">
                     {sc.description}
                   </p>
                 </div>
 
                 <button
                   onClick={() => startScenario(sc.id)}
-                  className="w-full py-2.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-semibold shadow-2xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                  className="w-full py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-3xs sm:text-xs font-semibold shadow-2xs transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
                 >
                   <span>Lancer la simulation</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <ArrowRight className="w-3 h-3" />
                 </button>
               </div>
             ))}
@@ -324,41 +324,41 @@ export const DialoguesView: React.FC = () => {
         activeScenario && (
           <div className="max-w-2xl mx-auto">
             {/* Top Bar Navigation */}
-            <div className="flex items-center justify-between mb-6 pb-3 border-b border-rose-100">
+            <div className="flex items-center justify-between mb-3 pb-2 border-b border-rose-100">
               <button
                 onClick={() => setSelectedScenarioId(null)}
-                className="text-xs font-semibold text-rose-600 hover:text-rose-700 flex items-center gap-1 cursor-pointer"
+                className="text-3xs sm:text-xs font-semibold text-rose-600 hover:text-rose-700 flex items-center gap-1 cursor-pointer"
               >
                 ← Retour aux scénarios
               </button>
-              <span className="text-2xs text-slate-400 font-mono">
+              <span className="text-4xs sm:text-2xs text-slate-400 font-mono">
                 {activeScenario.title}
               </span>
             </div>
 
             {isScenarioFinished ? (
               // Scenario Finished Screen
-              <div className="bg-white rounded-2xl border border-rose-100 p-8 text-center shadow-xs">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-rose-50 text-rose-500 flex items-center justify-center">
-                  <Sparkles className="w-8 h-8" />
+              <div className="bg-white rounded-2xl border border-rose-100 p-6 sm:p-8 text-center shadow-xs">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 rounded-2xl bg-rose-50 text-rose-500 flex items-center justify-center">
+                  <Sparkles className="w-6 h-6 sm:w-8 sm:h-8" />
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-2 font-serif-title">
+                <h3 className="text-lg sm:text-2xl font-bold text-slate-900 mb-1 sm:mb-2 font-serif-title">
                   Dialogue complété avec succès !
                 </h3>
-                <p className="text-slate-600 text-xs sm:text-sm mb-6 max-w-md mx-auto">
+                <p className="text-slate-600 text-3xs sm:text-sm mb-4 sm:mb-6 max-w-md mx-auto">
                   Félicitations, vous avez su trouver les bons mots pour communiquer avec douceur et politesse en thaïlandais !
                 </p>
-                <div className="flex items-center justify-center gap-3">
+                <div className="flex items-center justify-center gap-2 sm:gap-3">
                   <button
                     onClick={() => startScenario(activeScenario.id)}
-                    className="px-5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold transition-colors flex items-center gap-1.5 cursor-pointer"
+                    className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-3xs sm:text-xs font-semibold transition-colors flex items-center gap-1 cursor-pointer"
                   >
-                    <RotateCcw className="w-3.5 h-3.5" />
+                    <RotateCcw className="w-3 h-3" />
                     <span>Recommencer</span>
                   </button>
                   <button
                     onClick={() => setSelectedScenarioId(null)}
-                    className="px-5 py-2.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-semibold shadow-2xs transition-colors cursor-pointer"
+                    className="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-3xs sm:text-xs font-semibold shadow-2xs transition-colors cursor-pointer"
                   >
                     Choisir un autre thème
                   </button>
@@ -366,21 +366,21 @@ export const DialoguesView: React.FC = () => {
               </div>
             ) : (
               // Active Conversation Screen
-              <div className="space-y-6">
+              <div className="space-y-4">
                 {/* Chat Log container */}
-                <div className="bg-slate-50/50 rounded-2xl border border-rose-100/50 p-4 min-h-[220px] space-y-4 shadow-inner overflow-y-auto">
+                <div className="bg-slate-50/50 rounded-2xl border border-rose-100/50 p-2.5 sm:p-4 min-h-[180px] space-y-3 shadow-inner overflow-y-auto">
                   {activeScenario.lines.slice(0, currentLineIndex + 1).map((line, idx) => {
                     const isUser = line.speaker === 'lui';
                     return (
                       <div
                         key={line.id}
-                        className={`flex gap-3 max-w-[85%] ${
+                        className={`flex gap-2.5 max-w-[90%] sm:max-w-[85%] ${
                           isUser ? 'ml-auto flex-row-reverse' : 'mr-auto'
                         }`}
                       >
                         {/* Avatar */}
                         <div
-                          className={`w-8 h-8 rounded-full shrink-0 flex items-center justify-center text-xs font-bold shadow-2xs select-none ${
+                          className={`w-6.5 h-6.5 sm:w-8 sm:h-8 rounded-full shrink-0 flex items-center justify-center text-4xs sm:text-xs font-bold shadow-2xs select-none ${
                             isUser ? 'bg-sky-100 text-sky-700' : 'bg-pink-100 text-pink-700'
                           }`}
                         >
@@ -390,32 +390,32 @@ export const DialoguesView: React.FC = () => {
                         {/* Bubble */}
                         <div className="space-y-1">
                           <div
-                            className={`p-3.5 rounded-2xl text-xs shadow-2xs ${
+                            className={`p-2.5 sm:p-3.5 rounded-2xl text-xs shadow-2xs ${
                               isUser
                                 ? 'bg-sky-600 text-white rounded-tr-none'
                                 : 'bg-white text-slate-900 border border-slate-200/80 rounded-tl-none'
                             }`}
                           >
-                            <p className="font-bold text-sm sm:text-base leading-snug">
+                            <p className="font-bold text-xs sm:text-base leading-snug">
                               {line.phonetic}
                             </p>
-                            <p className={`text-2xs mt-1 ${isUser ? 'text-sky-100' : 'text-slate-400 font-serif-title'}`}>
+                            <p className={`text-3xs mt-0.5 ${isUser ? 'text-sky-100' : 'text-slate-400 font-serif-title'}`}>
                               ({line.thai})
                             </p>
-                            <p className={`text-xs mt-1.5 border-t pt-1 font-medium ${isUser ? 'border-sky-500/50 text-sky-100' : 'border-slate-100 text-slate-600'}`}>
+                            <p className={`text-2xs sm:text-xs mt-1 border-t pt-1 font-medium ${isUser ? 'border-sky-500/50 text-sky-100' : 'border-slate-100 text-slate-600'}`}>
                               {line.french}
                             </p>
                           </div>
 
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-1.5 flex-wrap">
                             <button
                               onClick={() => handlePlayLine(line.thai)}
-                              className="text-3xs text-rose-500 hover:text-rose-600 font-bold flex items-center gap-1 px-1"
+                              className="text-4xs sm:text-3xs text-rose-500 hover:text-rose-600 font-bold flex items-center gap-0.5 px-0.5"
                             >
-                              <Volume2 className="w-3 h-3" /> Écouter
+                              <Volume2 className="w-2.5 h-2.5" /> Écouter
                             </button>
                             {line.notes && (
-                              <span className="text-3xs text-slate-400 italic">
+                              <span className="text-4xs sm:text-3xs text-slate-400 italic">
                                 💡 {line.notes}
                               </span>
                             )}
@@ -427,28 +427,28 @@ export const DialoguesView: React.FC = () => {
                 </div>
 
                 {/* Question choice or Next Line button */}
-                <div className="bg-white rounded-2xl border border-rose-100 p-4 sm:p-6 shadow-2xs">
+                <div className="bg-white rounded-2xl border border-rose-100 p-3 sm:p-5 shadow-2xs">
                   {isUserTurn && currentChoice ? (
                     // User choice options
                     <div>
-                      <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3 flex items-center gap-1">
-                        <MessageSquare className="w-3.5 h-3.5 text-rose-500" />
+                      <h4 className="text-3xs sm:text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 sm:mb-3 flex items-center gap-1">
+                        <MessageSquare className="w-3 h-3 text-rose-500" />
                         <span>À votre tour : Choisissez votre réponse (Lui)</span>
                       </h4>
 
-                      <div className="space-y-2.5">
+                      <div className="space-y-2">
                         {currentChoice.options.map((opt, idx) => (
                           <button
                             key={idx}
                             onClick={() => handleSelectOption(idx, opt.isCorrect, opt.feedback)}
-                            className="w-full text-left p-3.5 rounded-xl border border-slate-200 hover:border-rose-300 hover:bg-rose-50/10 transition-all text-xs font-semibold text-slate-800 flex items-start gap-3 cursor-pointer"
+                            className="w-full text-left p-2.5 sm:p-3.5 rounded-xl border border-slate-200 hover:border-rose-300 hover:bg-rose-50/10 transition-all text-xs font-semibold text-slate-800 flex items-start gap-2 sm:gap-3 cursor-pointer"
                           >
-                            <span className="w-5 h-5 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center font-bold text-2xs shrink-0 mt-0.5">
+                            <span className="w-4.5 h-4.5 sm:w-5 sm:h-5 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center font-bold text-3xs sm:text-2xs shrink-0 mt-0.5">
                               {idx + 1}
                             </span>
                             <div>
-                              <p className="text-slate-900 font-medium">{opt.text}</p>
-                              <p className="text-slate-500 text-2xs italic font-normal mt-0.5">
+                              <p className="text-slate-900 font-medium text-xs sm:text-sm">{opt.text}</p>
+                              <p className="text-slate-500 text-3xs italic font-normal mt-0.5">
                                 « {opt.phonetic} »
                               </p>
                             </div>
@@ -460,24 +460,24 @@ export const DialoguesView: React.FC = () => {
                     // Next block / Feedback screen
                     <div>
                       {userFeedback && (
-                        <div className="mb-4 p-3 bg-rose-50/50 rounded-xl border border-rose-100 flex items-start gap-2 animate-fadeIn">
-                          <CheckCircle2 className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
-                          <div className="text-2xs text-rose-950 leading-normal">
+                        <div className="mb-3 p-2.5 bg-rose-50/50 rounded-xl border border-rose-100 flex items-start gap-1.5 animate-fadeIn">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-rose-500 shrink-0 mt-0.5" />
+                          <div className="text-3xs sm:text-xs text-rose-950 leading-normal">
                             <strong>Retour :</strong> {userFeedback}
                           </div>
                         </div>
                       )}
 
-                      <div className="flex items-center justify-between">
-                        <p className="text-2xs text-slate-400">
+                      <div className="flex items-center justify-between gap-1">
+                        <p className="text-4xs sm:text-2xs text-slate-400">
                           {userFeedback ? "Entraînez-vous à prononcer à haute voix puis continuez" : "Écoutez la phrase puis continuez"}
                         </p>
                         <button
                           onClick={handleNextLine}
-                          className="px-5 py-2.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-semibold shadow-2xs flex items-center gap-1.5 cursor-pointer"
+                          className="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-3xs sm:text-xs font-semibold shadow-2xs flex items-center gap-1 cursor-pointer"
                         >
                           <span>Continuer</span>
-                          <ArrowRight className="w-3.5 h-3.5" />
+                          <ArrowRight className="w-3 h-3" />
                         </button>
                       </div>
                     </div>

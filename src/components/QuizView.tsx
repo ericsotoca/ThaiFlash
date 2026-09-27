@@ -204,10 +204,10 @@ export const QuizView: React.FC<QuizViewProps> = ({
   const questionPrompt = direction === 'fr-to-th' ? currentQ.word.french : currentQ.word.phonetic;
 
   return (
-    <div className="max-w-2xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+    <div className="max-w-2xl mx-auto px-2 sm:px-6 py-2 sm:py-6">
       {/* Quiz Top bar: Counter & Streak */}
-      <div className="flex items-center justify-between text-xs text-slate-500 mb-4">
-        <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center justify-between text-3xs sm:text-xs text-slate-500 mb-2 gap-1.5">
+        <div className="flex items-center gap-1.5">
           <span className="font-semibold text-slate-800">
             Question <span className="font-mono tabular-nums">{currentIndex + 1}</span> /{' '}
             <span className="font-mono tabular-nums">{questions.length}</span>
@@ -216,25 +216,25 @@ export const QuizView: React.FC<QuizViewProps> = ({
           <span>{currentQ.word.category}</span>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           {streak > 1 && (
-            <span className="flex items-center gap-1 font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded text-2xs animate-pulse">
-              <Flame className="w-3 h-3 fill-amber-500" />
+            <span className="flex items-center gap-1 font-bold text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded text-4xs animate-pulse">
+              <Flame className="w-2.5 h-2.5 fill-amber-500" />
               <span>Série x{streak} !</span>
             </span>
           )}
           <button
             onClick={onToggleDirection}
-            className="text-rose-600 hover:text-rose-800 font-medium flex items-center gap-1 cursor-pointer"
+            className="text-rose-600 hover:text-rose-800 font-medium flex items-center gap-1 cursor-pointer text-3xs sm:text-xs"
           >
-            <ArrowRightLeft className="w-3 h-3" />
-            <span>{direction === 'fr-to-th' ? 'FR ➔ TH (Phonétique)' : 'TH (Phonétique) ➔ FR'}</span>
+            <ArrowRightLeft className="w-2.5 h-2.5" />
+            <span>{direction === 'fr-to-th' ? 'FR ➔ TH' : 'TH ➔ FR'}</span>
           </button>
         </div>
       </div>
 
       {/* Progress Line */}
-      <div className="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden mb-8">
+      <div className="w-full bg-slate-200 h-1 rounded-full overflow-hidden mb-4 sm:mb-6">
         <div
           className="bg-rose-500 h-full rounded-full transition-all duration-300 ease-out"
           style={{ width: `${((currentIndex + 1) / questions.length) * 100}%` }}
@@ -242,45 +242,45 @@ export const QuizView: React.FC<QuizViewProps> = ({
       </div>
 
       {/* Question Card */}
-      <div className="bg-white rounded-2xl border border-rose-100 p-6 sm:p-8 mb-6 shadow-2xs text-center relative overflow-hidden">
+      <div className="bg-white rounded-2xl border border-rose-100 p-4 sm:p-8 mb-4 sm:mb-6 shadow-2xs text-center relative overflow-hidden">
         {/* Heart backdrop watermark */}
-        <Heart className="absolute -right-6 -bottom-6 w-24 h-24 text-rose-50/60 pointer-events-none fill-current" />
+        <Heart className="absolute -right-6 -bottom-6 w-16 h-16 sm:w-24 sm:h-24 text-rose-50/60 pointer-events-none fill-current" />
 
-        <span className="text-xs uppercase tracking-wider text-slate-400 font-semibold mb-2 block relative">
+        <span className="text-3xs sm:text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1 block relative">
           {direction === 'fr-to-th'
             ? 'Traduisez cette expression pour votre couple :'
             : 'Quelle est la signification de ce mot doux ?'}
         </span>
-        <div className="flex items-center justify-center gap-3 mb-2 relative">
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 font-serif-title leading-snug">
+        <div className="flex items-center justify-center gap-2 mb-1 relative">
+          <h2 className="text-xl sm:text-3xl font-bold tracking-tight text-slate-900 font-serif-title leading-snug">
             {questionPrompt}
           </h2>
           {direction === 'th-to-fr' && (
             <button
               onClick={() => speakThai(currentQ.word.thai, 0.75)}
-              className="p-2.5 rounded-full bg-rose-50 text-rose-600 hover:bg-rose-100 transition-colors cursor-pointer"
+              className="p-1.5 rounded-full bg-rose-50 text-rose-600 hover:bg-rose-100 transition-colors cursor-pointer"
               title="Écouter le mot thaï"
             >
-              <Volume2 className="w-4 h-4" />
+              <Volume2 className="w-3.5 h-3.5" />
             </button>
           )}
         </div>
 
         {direction === 'fr-to-th' && (
-          <p className="text-2xs text-slate-400 italic">
+          <p className="text-4xs sm:text-2xs text-slate-400 italic">
             Trouvez la prononciation correspondante
           </p>
         )}
 
         {direction === 'th-to-fr' && (
-          <p className="text-xs font-mono text-rose-600 font-semibold">
+          <p className="text-3xs sm:text-xs font-mono text-rose-600 font-semibold">
             Ton : {currentQ.word.tone} · Parlé par : {currentQ.word.speaker === 'homme' ? 'Lui' : currentQ.word.speaker === 'femme' ? 'Elle' : 'Les deux'}
           </p>
         )}
       </div>
 
       {/* 4 Answer Choice Buttons */}
-      <div className="grid grid-cols-1 gap-3 mb-6">
+      <div className="grid grid-cols-1 gap-2 sm:gap-3 mb-4 sm:mb-6">
         {currentQ.options.map((opt, idx) => {
           let btnStyle = 'border-slate-200 bg-white hover:border-rose-300 hover:bg-rose-50/30 text-slate-800';
 
@@ -299,20 +299,20 @@ export const QuizView: React.FC<QuizViewProps> = ({
               key={idx}
               onClick={() => handleSelectOption(idx)}
               disabled={isAnswered}
-              className={`w-full py-4 px-5 rounded-xl border text-left font-semibold text-sm sm:text-base transition-all flex items-center justify-between shadow-2xs cursor-pointer ${btnStyle}`}
+              className={`w-full py-2.5 px-3.5 sm:py-4 sm:px-5 rounded-xl border text-left font-semibold text-xs sm:text-base transition-all flex items-center justify-between shadow-2xs cursor-pointer ${btnStyle}`}
             >
-              <div className="flex items-center gap-3">
-                <span className="w-7 h-7 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center font-mono text-xs font-bold shrink-0">
+              <div className="flex items-center gap-2.5">
+                <span className="w-5.5 h-5.5 sm:w-7 sm:h-7 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center font-mono text-3xs sm:text-xs font-bold shrink-0">
                   {String.fromCharCode(65 + idx)}
                 </span>
                 <span>{opt.text}</span>
               </div>
 
               {isAnswered && idx === currentQ.correctIndex && (
-                <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+                <CheckCircle2 className="w-4.5 h-4.5 text-emerald-600 shrink-0" />
               )}
               {isAnswered && idx === selectedOption && idx !== currentQ.correctIndex && (
-                <XCircle className="w-5 h-5 text-rose-600 shrink-0" />
+                <XCircle className="w-4.5 h-4.5 text-rose-600 shrink-0" />
               )}
             </button>
           );
@@ -321,38 +321,38 @@ export const QuizView: React.FC<QuizViewProps> = ({
 
       {/* Answer feedback reveal card */}
       {isAnswered && (
-        <div className="bg-slate-50 rounded-xl border border-rose-100 p-4 mb-6 transition-all animate-fadeIn">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <div className="flex items-center gap-2 mb-1">
-                <span className="font-bold text-slate-900 text-base">
+        <div className="bg-slate-50 rounded-xl border border-rose-100 p-3.5 mb-4 sm:mb-6 transition-all animate-fadeIn">
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center gap-1.5 mb-0.5 flex-wrap">
+                <span className="font-bold text-slate-900 text-sm sm:text-base truncate">
                   {currentQ.word.phonetic}
                 </span>
                 <button
                   onClick={() => speakThai(currentQ.word.thai, 0.75)}
-                  className="p-1 rounded-full text-rose-600 hover:bg-rose-100 transition-colors cursor-pointer"
+                  className="p-0.5 rounded-full text-rose-600 hover:bg-rose-100 transition-colors cursor-pointer"
                   title="Écouter la prononciation"
                 >
-                  <Volume2 className="w-4 h-4" />
+                  <Volume2 className="w-3.5 h-3.5" />
                 </button>
-                <span className="text-2xs font-serif-title text-slate-400">
+                <span className="text-3xs font-serif-title text-slate-400">
                   ({currentQ.word.thai})
                 </span>
               </div>
-              <p className="text-xs text-slate-600 mb-1 leading-normal">
+              <p className="text-3xs sm:text-xs text-slate-600 mb-1 leading-normal">
                 Signification : <strong className="text-slate-800">{currentQ.word.french}</strong> · Ton <strong className="text-rose-600">{currentQ.word.tone}</strong>
               </p>
-              <p className="text-2xs text-slate-500 italic bg-rose-50/40 p-2 rounded leading-normal border border-rose-100/30">
+              <p className="text-4xs sm:text-2xs text-slate-500 italic bg-rose-50/40 p-1.5 rounded leading-normal border border-rose-100/30">
                 💬 « {currentQ.word.examplePhonetic} » — {currentQ.word.exampleFr}
               </p>
             </div>
 
             <button
               onClick={handleNextQuestion}
-              className="shrink-0 px-4 py-2.5 bg-rose-600 hover:bg-rose-700 text-white rounded-lg font-semibold text-xs transition-all flex items-center gap-1.5 shadow-2xs cursor-pointer"
+              className="shrink-0 px-3 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-lg font-semibold text-3xs sm:text-xs transition-all flex items-center gap-1 shadow-2xs cursor-pointer"
             >
               <span>{currentIndex + 1 < questions.length ? 'Suivant' : 'Résultats'}</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <ArrowRight className="w-3 h-3" />
             </button>
           </div>
         </div>
