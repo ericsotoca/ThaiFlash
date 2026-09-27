@@ -27,8 +27,12 @@ export const speakThai = (
   const playFallbackAudio = () => {
     try {
       const encodedText = encodeURIComponent(text);
-      // Using same-origin secure proxy to bypass Safari/Chrome iframe CORS & Referer policies
-      const ttsUrl = `/api/tts?text=${encodedText}`;
+      // If we are hosted on a static provider like GitHub Pages (github.io), we use the direct Google TTS URL
+      // Otherwise, we use the local /api/tts proxy of our Node/Express server.
+      const isStaticGitHubPages = window.location.hostname.includes('github.io');
+      const ttsUrl = isStaticGitHubPages
+        ? `https://translate.google.com/translate_tts?ie=UTF-8&tl=th&client=tw-ob&q=${encodedText}`
+        : `/api/tts?text=${encodedText}`;
       
       const audio = new Audio(ttsUrl);
       activeAudio = audio;
