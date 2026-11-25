@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { VOCABULARY_DATA, THAI_CATEGORIES } from './data/thaiVocab';
-import { AppTab, StudyDirection, WordMastery, UserProgress } from './types/vocab';
+import { AppTab, StudyDirection, ThaiWord, WordMastery, UserProgress } from './types/vocab';
 import { loadUserProgress, saveUserProgress } from './utils/storage';
 import { Navbar } from './components/Navbar';
 import { FlashcardView } from './components/FlashcardView';
@@ -17,13 +17,39 @@ import { Heart } from 'lucide-react';
 
 export default function App() {
   const [currentTab, setCurrentTab] = useState<AppTab>('flashcards');
-  // Default direction: 'fr-to-th' (Français vers Thaïlandais phonétique)
   const [direction, setDirection] = useState<StudyDirection>('fr-to-th');
   const [userProgress, setUserProgress] = useState<UserProgress>(loadUserProgress);
   const [selectedCategory, setSelectedCategory] = useState<string>('Toutes les catégories');
   const [isStatsOpen, setIsStatsOpen] = useState(false);
+  const [extraVocabulary, setExtraVocabulary] = useState<ThaiWord[]>([]);
 
-  // Sync to localStorage
+  // Load the public vocabulary mirror generated from the Notion ThaiFlash database.
+  // The built-in vocabulary remains available if the network is unavailable.
+  useEffect(() => {
+    const loadExtraVocabulary = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.BASE_URL}vocab-extra.json`, { cache: 'no-store' });
+        if (!response.ok) throw new Error(`Vocabulary feed returned ${response.status}`);
+        const data = await response.json() as ThaiWord[];
+        if (Array.isArray(data)) {
+          setExtraVocabulary(data.filter((word) =>
+            Boolean(word?.id && word?.french && word?.phonetic && word?.thai && word?.category)
+          ));
+        }
+      } catch (error) {
+        console.warn('ThaiFlash: unable to refresh the shared vocabulary; using built-in words.', error);
+      }
+    };
+
+    void loadExtraVocabulary();
+  }, []);
+
+  const vocabulary = [...VOCABULARY_DATA, ...extraVocabulary];
+  const categories = Array.from(new Set<string>([
+    ...THAI_CATEGORIES,
+    ...extraVocabulary.map((word) => word.category),
+  ]));
+
   useEffect(() => {
     saveUserProgress(userProgress);
   }, [userProgress]);
@@ -91,7 +117,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900">
-      {/* Top Bar Contract Compliant Navbar */}
       <Navbar
         currentTab={currentTab}
         onTabChange={setCurrentTab}
@@ -99,17 +124,16 @@ export default function App() {
         onToggleDirection={handleToggleDirection}
         streakDays={userProgress.history.streakDays}
         masteredCount={masteredCount}
-        totalCount={VOCABULARY_DATA.length}
+        totalCount={vocabulary.length}
         onOpenStats={() => setIsStatsOpen(true)}
       />
 
       <PWAInstallButton />
 
-      {/* Main Study Arena */}
       <main className="flex-1">
         {currentTab === 'flashcards' && (
           <FlashcardView
-            words={VOCABULARY_DATA}
+            words={vocabulary}
             direction={direction}
             onToggleDirection={handleToggleDirection}
             masteryMap={userProgress.mastery}
@@ -118,13 +142,13 @@ export default function App() {
             onToggleFavorite={handleToggleFavorite}
             selectedCategory={selectedCategory}
             onSelectCategory={setSelectedCategory}
-            categories={THAI_CATEGORIES}
+            categories={categories}
           />
         )}
 
         {currentTab === 'quiz' && (
           <QuizView
-            words={VOCABULARY_DATA}
+            words={vocabulary}
             direction={direction}
             onToggleDirection={handleToggleDirection}
             onUpdateMastery={handleUpdateMastery}
@@ -132,54 +156,46 @@ export default function App() {
           />
         )}
 
-        {currentTab === 'dialogues' && (
-          <DialoguesView />
-        )}
-
-        {currentTab === 'matching' && (
-          <MatchingView words={VOCABULARY_DATA} />
-        )}
+        {currentTab === 'dialogues' && <DialoguesView />}
+        {currentTab === 'matching' && <MatchingView words={vocabulary} />}
 
         {currentTab === 'dictionary' && (
           <DictionaryView
-            words={VOCABULARY_DATA}
+            words={vocabulary}
             masteryMap={userProgress.mastery}
             favorites={userProgress.favorites}
             onToggleFavorite={handleToggleFavorite}
             onUpdateMastery={handleUpdateMastery}
-            categories={THAI_CATEGORIES}
+            categories={categories}
           />
         )}
 
         {currentTab === 'guide' && <AlphabetView />}
-
-        {currentTab === 'games' && <GamesView words={VOCABULARY_DATA} />}
+        {currentTab === 'games' && <GamesView words={vocabulary} />}
       </main>
 
-      {/* Progress & Stats Modal */}
       <StatsModal
         isOpen={isStatsOpen}
         onClose={() => setIsStatsOpen(false)}
         progress={userProgress}
-        totalWords={VOCABULARY_DATA.length}
+        totalWords={vocabulary.length}
         onResetProgress={handleResetProgress}
       />
 
-      {/* Quiet, Anti-Slop Footer */}
       <footer className="border-t border-rose-100 bg-white py-6 mt-12 text-center text-xs text-slate-500">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <span className="font-semibold text-rose-700 flex items-center gap-1">
               <Heart className="w-3 h-3 fill-current text-rose-500" />
-              <span>ThaiFlash : Thaï Oral de Couple</span>
+              <span>ThaiFlash : Thaï Oral</span>
             </span>
             <span aria-hidden="true">·</span>
-            <span>36 phrases & expressions essentielles pour couple franco-thaïlandais</span>
+            <span>{vocabulary.length} expressions disponibles</span>
           </div>
           <div className="flex items-center gap-4 text-slate-400">
-            <span>Synthèse vocale Web Speech th-TH</span>
+            <span>Synthèse vocale thaïe</span>
             <span aria-hidden="true">·</span>
-            <span>Phonétique simplifiée avec marquage des tons</span>
+            <span>Phonétique latine et indications de tons</span>
           </div>
         </div>
       </footer>
