@@ -34,8 +34,8 @@ jobs:
         node-version: 20
         cache: 'npm'
 
-    - name: 📦 Installation des dépendances
-      run: npm ci --legacy-peer-deps
+    - name: 📦 Installation des dépendances (réconciliation du lockfile)
+      run: npm install --legacy-peer-deps
 
     - name: 🔍 Vérification du Linter (TypeScript)
       run: npm run lint
@@ -54,5 +54,3 @@ jobs:
     - name: 🚀 Déploiement sur GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v4
-
-
